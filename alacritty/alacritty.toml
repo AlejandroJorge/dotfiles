@@ -1,0 +1,6 @@
+[shell]
+program = "/bin/bash"
+
+[font]
+normal = { family = "JetBrains Mono NerdFont", style = "Regular" }
+size = 10
