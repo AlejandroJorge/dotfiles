@@ -1,3 +1,12 @@
+# Dracula theme for Alacritty
+# https://draculatheme.com/alacritty
+#
+# Color palette
+# https://spec.draculatheme.com
+#
+# Instructions
+# https://github.com/alacritty/alacritty/blob/master/extra/man/alacritty.5.scd
+
 [colors.primary]
 
 background = "#282a36"
@@ -65,7 +74,3 @@ background = "#f1fa8c"
 
 foreground = "#f1fa8c"
 background = "#282a36"
-
-[font]
-normal = { family = "JetBrains Mono NerdFont", style = "Regular" }
-size = 9
