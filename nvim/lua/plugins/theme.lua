@@ -1,6 +1,6 @@
 return {
-	"Mofiqul/dracula.nvim",
+	"catppuccin/nvim",
 	config = function()
-		vim.cmd.colorscheme("dracula")
+		vim.cmd.colorscheme("catppuccin-frappe")
 	end,
 }

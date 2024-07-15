@@ -36,6 +36,13 @@ return {
 			vim.api.nvim_buf_create_user_command(bufnr, "LspFormat", function(_)
 				vim.lsp.buf.format()
 			end, { desc = "Format current buffer with LSP" })
+
+			-- Format on save
+			vim.api.nvim_create_autocmd({ "BufWrite" }, {
+				callback = function()
+					vim.cmd("LspFormat")
+				end
+			})
 		end
 
 		require("mason").setup()
@@ -75,6 +82,14 @@ return {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			filetypes = { "gleam" },
+		})
+
+		require("lspconfig").astro.setup({
+			init_options = {
+				typescript = {
+					tsdk = "node_modules/typescript/lib"
+				}
+			}
 		})
 	end,
 }
