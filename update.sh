@@ -9,3 +9,6 @@ for app in $apps; do
   rm -rf $thisFolder/$app
   cp -r $sysConfigFolder/$app $thisFolder
 done
+
+rm $thisFolder/.bashrc
+cp $HOME/.bashrc $thisFolder
