@@ -161,3 +161,5 @@ export PATH=$ZIGENV_ROOT/bin:$ZIGENV_ROOT/shims:$PATH
 export PATH="$PATH:/home/ramza/.local/bin"
 
 export PATH="$HOME/.idea/bin:$PATH"
+
+alias vim="nvim"
