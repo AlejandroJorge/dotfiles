@@ -83,13 +83,5 @@ return {
 			on_attach = on_attach,
 			filetypes = { "gleam" },
 		})
-
-		require("lspconfig").astro.setup({
-			init_options = {
-				typescript = {
-					tsdk = "node_modules/typescript/lib"
-				}
-			}
-		})
 	end,
 }
