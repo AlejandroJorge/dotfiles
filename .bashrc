@@ -163,3 +163,10 @@ export PATH="$PATH:/home/ramza/.local/bin"
 export PATH="$HOME/.idea/bin:$PATH"
 
 alias vim="nvim"
+
+# fnm
+FNM_PATH="/home/ramza/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi

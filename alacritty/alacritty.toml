@@ -1,7 +1,9 @@
 [env]
+
 TERM = "xterm-256color"
 
 [window]
+
 padding = { x = 4, y = 4 }
 
 [colors.primary]
@@ -73,5 +75,6 @@ foreground = "#f1fa8c"
 background = "#282a36"
 
 [font]
+
 normal = { family = "JetBrains Mono NerdFont", style = "Regular" }
-size = 7.5
+size = 7
