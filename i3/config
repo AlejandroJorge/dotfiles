@@ -192,19 +192,16 @@ for_window [class="firefox"] fullscreen enable
 for_window [class="Alacritty"] fullscreen enable
 for_window [class="Todoist"] fullscreen enable
 for_window [class="okular"] fullscreen enable
-for_window [class="obs"] fullscreen enable
 
-exec firefox --new-window https://gemini.google.com --new-tab https://studio.youtube.com/channel/UC3gc1qSUqdC_2LE8LKY0h3w/livestreaming --new-tab https://pomofocus.io --new-tab https://music.youtube.com/watch?v=ZXni9_91ORs
+exec firefox 
 exec alacritty
 exec flatpak run com.todoist.Todoist
 exec okular
-exec obs
 
 assign [class="firefox"] 1
 assign [class="Alacritty"] 2
 assign [class="Todoist"] 3
 assign [class="okular"] 4
-assign [class="obs"] 5
 
 set $rosewater #f2d5cf
 set $flamingo #eebebe
@@ -257,3 +254,5 @@ bar {
     binding_mode       $base $base $surface1
   }
 }
+
+exec --no-startup-id /usr/libexec/gsd-xsettings
