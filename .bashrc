@@ -184,4 +184,4 @@ alias todoist="flatpak run com.todoist.Todoist"
 source <(ng completion script)
 
 # zig
-export PATH=$PATH:$HOME/zig
+export PATH=$PATH:$HOME/.zig
