@@ -162,11 +162,26 @@ export PATH="$PATH:/home/ramza/.local/bin"
 
 export PATH="$HOME/.idea/bin:$PATH"
 
-alias vim="nvim"
-
 # fnm
 FNM_PATH="/home/ramza/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
 fi
+
+# go
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/go/bin
+export GOPATH=$HOME/.go
+
+# Some alias
+alias vim="nvim"
+alias retroarch="flatpak run org.libretro.RetroArch"
+alias todoist="flatpak run com.todoist.Todoist"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+# zig
+export PATH=$PATH:$HOME/zig

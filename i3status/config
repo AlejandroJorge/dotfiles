@@ -8,18 +8,27 @@ general {
 
 order += "battery 0"
 order += "tztime local"
+order += "volume master"
 
 tztime local {
-        format = "%Y-%m-%d %H:%M:%S"
+  format = "%Y-%m-%d %H:%M:%S"
 }
 
 battery 0 {
-        format = "%status %percentage Left: %remaining"
-        format_down = "No battery"
-        status_chr = "⚡ CHR"
-        status_bat = "🔋 BAT"
-        status_unk = "? UNK"
-        status_full = "☻ FULL"
-        path = "/sys/class/power_supply/BAT%d/uevent"
-        low_threshold = 15
+  format = "%status %percentage Left: %remaining"
+  format_down = "No battery"
+  status_chr = "⚡ CHR"
+  status_bat = "🔋 BAT"
+  status_unk = "? UNK"
+  status_full = "☻ FULL"
+  path = "/sys/class/power_supply/BAT%d/uevent"
+  low_threshold = 15
+}
+
+volume master {
+  format = "♪: %volume"
+  format_muted = "♪: muted (%volume)"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
 }
