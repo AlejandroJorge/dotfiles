@@ -40,7 +40,9 @@ return {
 			-- Format on save
 			vim.api.nvim_create_autocmd({ "BufWrite" }, {
 				callback = function()
-					vim.cmd("LspFormat")
+					if vim.fn.exists(":LspFormat") == 2 then
+						vim.cmd("LspFormat")
+					end
 				end
 			})
 		end

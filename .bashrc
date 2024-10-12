@@ -1,187 +1,89 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+    *i*) ;;  # Continue if interactive
+    *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+# History settings
+HISTCONTROL=ignoreboth    # Ignore duplicate lines or lines starting with space
+shopt -s histappend       # Append to history file, don't overwrite
+HISTSIZE=1000             # Max number of commands to remember in history
+HISTFILESIZE=2000         # Max size of history file
 
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# Automatically update window size after each command
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
+# Set variable identifying the chroot (used in the prompt)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
+# Enable color prompt if the terminal supports it
 case "$TERM" in
-    xterm-color|*-256color|alacritty) color_prompt=yes;;
+    xterm-color|*-256color|alacritty) color_prompt=yes ;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-# if [ "$color_prompt" = yes ]; then
-#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\ \A$ '
-# else
-#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-# fi
-
+# Git branch function
 parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+  git symbolic-ref --short HEAD 2>/dev/null
 }
 
-color_prompt=yes  # Set to "no" if you don't want colors
-
+# Set prompt with Gruvbox colors
 if [ "$color_prompt" = yes ]; then
-    PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;38;5;255m\]\t \[\033[01;38;5;103m\]\u@\h \[\033[01;38;5;68m\]\w\[\033[01;38;5;203m\]$(parse_git_branch) \[\033[01;38;5;203m\]>\[\033[00m\] '
+    PS1='\[\e]0;\u@\h: \w\a\]'   # Title bar
+    PS1+='\[\033[01;38;5;223m\]🕒 \t '   # Time (Gruvbox Yellow)
+    PS1+='\[\033[01;38;5;214m\]\u@\h '   # User@Host (Gruvbox Orange)
+    PS1+='\[\033[01;38;5;108m\]\w\n'     # Working directory (Gruvbox Green)
+    PS1+='\[\033[01;38;5;167m\]$(parse_git_branch 2>/dev/null) '  # Git branch (Gruvbox Red)
+    PS1+='\[\033[01;38;5;167m\]>\[\033[00m\] '  # End prompt
 else
-    PS1='${debian_chroot:+($debian_chroot)}\t \u@\h \w $(parse_git_branch) > '
+    PS1='\t \u@\h \w $(parse_git_branch) > '
 fi
-unset color_prompt force_color_prompt
+unset color_prompt
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-# enable color support of ls and also add handy aliases
+# Enable color support for ls and add aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    eval "$(dircolors -b ~/.dircolors 2>/dev/null || dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
+# GCC colors for warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
+# Source custom aliases if they exist
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# Enable bash completion if available
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+  [ -f /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 fi
 
-# fnm
-FNM_PATH="/home/ramza/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
+# Add directories to PATH
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/go/bin:$HOME/go/bin:$HOME/.idea/bin:$HOME/.zig"
+
+# fnm (Fast Node Manager) setup
+if [ -d "$HOME/.local/share/fnm" ]; then
+    export PATH="$HOME/.local/share/fnm:$PATH"
+    eval "$(fnm env)"
 fi
 
-# pnpm
-export PNPM_HOME="/home/ramza/.local/share/pnpm"
+# pnpm setup
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+    *":$PNPM_HOME:"*) ;;  # Do nothing if already in PATH
+    *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
 
-# Created by `pipx` on 2024-07-15 02:34:46
-export PATH="$PATH:/home/ramza/.local/bin"
-
-# Tmux
-alias tmux="TERM=xterm-256color tmux"
-
-# set PATH so it includes cargo's bin if it exists
-if [ -d "$HOME/.cargo/bin" ] ; then
-    PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-. "$HOME/.cargo/env"
-
-export PATH=$PATH:/usr/local/go/bin
-
-export ZIGENV_ROOT=$HOME/.zigenv
-export PATH=$ZIGENV_ROOT/bin:$ZIGENV_ROOT/shims:$PATH
-
-# Created by `pipx` on 2024-07-15 02:34:46
-export PATH="$PATH:/home/ramza/.local/bin"
-
-export PATH="$HOME/.idea/bin:$PATH"
-
-# fnm
-FNM_PATH="/home/ramza/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
-fi
-
-# go
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$HOME/go/bin
+# Set GOPATH for Go
 export GOPATH=$HOME/.go
 
-# Some alias
+# Aliases
 alias vim="nvim"
-alias retroarch="flatpak run org.libretro.RetroArch"
-alias todoist="flatpak run com.todoist.Todoist"
+alias tmux="TERM=xterm-256color tmux"
 
-
-# Load Angular CLI autocompletion.
+# Autocompletion for Angular CLI
 source <(ng completion script)
-
-# zig
-export PATH=$PATH:$HOME/.zig

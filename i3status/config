@@ -1,33 +1,39 @@
 general {
   output_format = "i3bar"
   colors = true
-  color_good = "#50FA7B"
-  color_degraded = "#F1FA8C"
-  color_bad = "#FF5555"
+  color_good = "#50FA7B"     # Gruvbox green for good status
+  color_degraded = "#F1FA8C" # Gruvbox yellow for warnings
+  color_bad = "#FF5555"      # Gruvbox red for bad status
 }
 
 order += "battery 0"
 order += "tztime local"
 order += "volume master"
 
+# Time and Date
 tztime local {
-  format = "%Y-%m-%d %H:%M:%S"
+  format = "📅 %Y-%m-%d 🕒 %H:%M:%S"
 }
 
+# Battery Information
 battery 0 {
-  format = "%status %percentage Left: %remaining"
-  format_down = "No battery"
-  status_chr = "⚡ CHR"
-  status_bat = "🔋 BAT"
-  status_unk = "? UNK"
-  status_full = "☻ FULL"
+  format = "%status %percentage% | ⏳ %remaining left"
+  format_down = "⚠️  No battery"
+  status_chr = "⚡ CHR"        # Charging icon
+  status_bat = "🔋 BAT"        # Battery icon
+  status_unk = "❓ UNK"        # Unknown status icon
+  status_full = "☻ FULL"      # Full battery icon
   path = "/sys/class/power_supply/BAT%d/uevent"
-  low_threshold = 15
+  low_threshold = 15           # Warn at 15%
+  threshold_type = percentage
+  color_good = "#50FA7B"       # Green for good battery
+  color_bad = "#FF5555"        # Red for low battery
 }
 
+# Volume Control
 volume master {
-  format = "♪: %volume"
-  format_muted = "♪: muted (%volume)"
+  format = "🔊 %volume"
+  format_muted = "🔇 Muted (%volume)"
   device = "default"
   mixer = "Master"
   mixer_idx = 0
