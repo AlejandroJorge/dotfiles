@@ -5,7 +5,7 @@ return {
 	},
 	build = ":TSUpdate",
 	opts = {
-		ensure_installed = { "c", "lua", "go", "bash" },
+		ensure_installed = { "c", "lua", "go", "bash", "zig", "javascript", "typescript", "html", "python" },
 		sync_install = false,
 		auto_install = true,
 		autotag = true,

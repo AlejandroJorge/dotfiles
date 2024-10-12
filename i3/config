@@ -167,3 +167,16 @@ bar {
     binding_mode       $bg1 $red $fg_light
   }
 }
+
+# Screenshot Keybindings
+# Fullscreen screenshot saved to ~/Pictures
+bindsym Print exec --no-startup-id maim ~/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png
+
+# Select an area for screenshot, save to ~/Pictures
+bindsym Ctrl+Print exec --no-startup-id maim --select ~/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png
+
+# Fullscreen screenshot to clipboard
+bindsym Shift+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+
+# Select an area for screenshot to clipboard
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png

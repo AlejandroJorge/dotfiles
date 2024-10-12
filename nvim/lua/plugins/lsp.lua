@@ -57,6 +57,13 @@ return {
 					telemetry = { enable = false },
 				},
 			},
+			clangd = {}, -- C/C++
+			zls = {},   -- Zig
+			gopls = {}, -- Go
+			emmet_ls = {}, -- Emmet for HTML and CSS
+			tsserver = {}, -- JavaScript/TypeScript
+			pyright = {}, -- Python
+			bashls = {}, -- Bash
 		}
 
 		require("neodev").setup()
@@ -78,12 +85,6 @@ return {
 					filetypes = (servers[server_name] or {}).filetypes,
 				})
 			end,
-		})
-
-		require("lspconfig").gleam.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			filetypes = { "gleam" },
 		})
 	end,
 }
