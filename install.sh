@@ -3,7 +3,7 @@
 sysConfigFolder="$HOME/.config"
 thisFolder="."
 
-apps="nvim i3 i3status alacritty gtk-3.0 tmux"
+apps="nvim i3 i3status alacritty gtk-3.0 tmux rofi ranger"
 
 for app in $apps; do
   rm -rf $sysConfigFolder/$app

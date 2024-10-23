@@ -1,9 +1,9 @@
 #!/bin/bash
 
+apps="nvim i3 i3status alacritty gtk-3.0 tmux rofi ranger"
+
 sysConfigFolder="$HOME/.config"
 thisFolder="."
-
-apps="nvim i3 i3status alacritty gtk-3.0 tmux"
 
 for app in $apps; do
   rm -rf $thisFolder/$app

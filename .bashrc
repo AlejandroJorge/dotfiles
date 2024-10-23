@@ -87,3 +87,7 @@ alias tmux="TERM=xterm-256color tmux"
 
 # Autocompletion for Angular CLI
 source <(ng completion script)
+
+# Default text editor
+export VISUAL="nvim"
+export EDITOR="nvim"

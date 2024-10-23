@@ -33,8 +33,8 @@ bindsym $mod+Return exec alacritty
 # Kill focused window
 bindsym $mod+Shift+q kill
 
-# Launch dmenu
-bindsym $mod+d exec "dmenu_run -nf '#ebdbb2' -nb '#282828' -sb '#b8bb26' -sf '#1d2021' -fn 'monospace-10' -p '>'"
+# Launch rofi
+bindsym $mod+d exec "rofi -show run -theme ~/.config/rofi/themes/gruvbox.rasi -font 'monospace 10' -p '>'"
 
 # Change focus
 bindsym $mod+h focus left
