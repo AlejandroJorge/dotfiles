@@ -22,4 +22,7 @@ export PATH="$PATH:/home/ramza/.local/bin"
 export GOPATH="$HOME/.go"
 export PATH="$GOPATH/bin:$PATH"
 
+# nvim
+export EDITOR='nvim'
 alias vi=nvim
+alias vim=nvim
