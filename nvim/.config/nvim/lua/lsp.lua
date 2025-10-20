@@ -10,16 +10,27 @@ require("mason").setup()
 local lspconfig = require("lspconfig")
 
 require("mason-lspconfig").setup({
+  ensure_installed = {
+    "terraformls",
+    "ts_ls",
+    "basedpyright",
+    "ruff",
+    "tailwindcss",
+    "clangd",
+    "gopls",
+    "lua_ls",
+    "texlab"
+  },
   handlers = {
     function(server_name)
       lspconfig[server_name].setup({
         capabilities = require("blink.cmp").get_lsp_capabilities()
       })
-    end
+    end,
   }
 })
 
-lspconfig.tailwindcss.setup({
+vim.lsp.config.tailwindcss = {
   capabilities = require("blink.cmp").get_lsp_capabilities(),
   settings = {
     tailwindCSS = {
@@ -34,7 +45,66 @@ lspconfig.tailwindcss.setup({
       }
     }
   }
-})
+}
+
+vim.lsp.config.gopls = {
+  capabilities = require("blink.cmp").get_lsp_capabilities(),
+  settings = {
+    gopls = {
+      ["ui.inlayhint.hints"] = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        parameterNames = true,
+        functionTypeParameters = true,
+        ignoredError = true,
+        rangeVariableTypes = true,
+      }
+    }
+  }
+}
+
+vim.lsp.config.basedpyright = {
+  capabilities = require("blink.cmp").get_lsp_capabilities(),
+  settings = {
+    basedpyright = {
+      analysis = {
+        inlayHints = {
+          variableTypes = true,
+          functionReturnTypes = true,
+          callArgumentNames = "all",
+          genericTypes = true,
+        },
+      },
+    },
+    python = {
+      analysis = {
+        typeCheckingMode = "basic",
+        diagnosticSeverityOverrides = {
+          reportUnusedVariable = "none",
+          reportUnusedImport = "none",
+          reportImportCycles = "none",
+          reportShadowedImports = "none",
+        },
+      },
+    },
+  },
+}
+
+vim.lsp.config.clangd = {
+  capabilities = require("blink.cmp").get_lsp_capabilities(),
+  settings = {
+    clangd = {
+      InlayHints = {
+        Enabled = true,
+        ParameterNames = true,
+        DeducedTypes = true,
+        Designators = true,
+      }
+    }
+  }
+}
 
 vim.api.nvim_create_user_command("LspFormat", function(_)
   if vim.lsp.get_clients({ bufnr = 0, method = "textDocument/formatting" }) then
@@ -46,5 +116,9 @@ require("blink.cmp").setup({
   keymap = { preset = "default" },
   fuzzy = { implementation = "lua" }
 })
+
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
+
+vim.lsp.inlay_hint.enable(true)
 
 vim.cmd("highlight MasonNormal guibg=none")
