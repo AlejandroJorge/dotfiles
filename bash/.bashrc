@@ -26,3 +26,6 @@ export PATH="$GOPATH/bin:$PATH"
 export EDITOR='nvim'
 alias vi=nvim
 alias vim=nvim
+
+# some alias
+alias cat=bat
