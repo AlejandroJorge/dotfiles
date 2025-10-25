@@ -41,6 +41,7 @@ prompt {
 entry {
     placeholder: "Search...";
     placeholder-color: @border;
+    text-color: @fg;
 }
 
 listview {
