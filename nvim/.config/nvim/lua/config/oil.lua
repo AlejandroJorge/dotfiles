@@ -8,12 +8,15 @@ require("mini.icons").setup()
 
 require("oil").setup({
   keymaps = {
-    ["<BS>"] = { "actions.parent", mode = "n" }
+    ["<BS>"] = { "actions.parent", mode = "n" },
+    ["<leader>hf"] = { "actions.toggle_hidden", mode = "n" }
   },
   delete_to_trash = false,
   win_options = {
     signcolumn = "yes:2"
   }
 })
+
+require("oil-git-status").setup({})
 
 vim.keymap.set("n", "<leader>ft", "<CMD>Oil<CR>", { silent = true })
