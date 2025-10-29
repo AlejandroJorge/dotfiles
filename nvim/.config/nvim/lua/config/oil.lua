@@ -9,7 +9,8 @@ require("mini.icons").setup()
 require("oil").setup({
   keymaps = {
     ["<BS>"] = { "actions.parent", mode = "n" },
-    ["<leader>hf"] = { "actions.toggle_hidden", mode = "n" }
+    ["<leader>hf"] = { "actions.toggle_hidden", mode = "n" },
+    ["<leader>cd"] = { "actions.cd", mode = "n" }
   },
   delete_to_trash = false,
   win_options = {
