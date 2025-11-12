@@ -11,6 +11,11 @@ PS1='[\u@\h \W]\$ '
 
 eval "$(starship init bash)"
 
+eval "$(ruby ~/.local/try.rb init ~/src/tries)"
+
+# nvm
+source /usr/share/nvm/init-nvm.sh
+
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"

@@ -13,3 +13,10 @@ require("nvim-surround").setup()
 vim.pack.add({
   { src = "https://github.com/rafamadriz/friendly-snippets" },
 })
+
+vim.pack.add({
+  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim.git" }
+})
+require("render-markdown").setup({
+  completions = { lsp = { enabled = true } },
+})

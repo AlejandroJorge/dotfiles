@@ -106,6 +106,8 @@ vim.lsp.config.clangd = {
   }
 }
 
+vim.lsp.enable("gleam")
+
 vim.api.nvim_create_user_command("LspFormat", function(_)
   if vim.lsp.get_clients({ bufnr = 0, method = "textDocument/formatting" }) then
     vim.lsp.buf.format()
